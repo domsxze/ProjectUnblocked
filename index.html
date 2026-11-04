@@ -1,5 +1,36 @@
-<html><head>
-                <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Math Challenge Gate</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; }
+  #gate, #realSite { padding:40px; }
+  #realSite { display:none; background:#fff; }
+  input { padding:10px; font-size:18px; width:250px; }
+  button { padding:10px 20px; font-size:18px; cursor:pointer; }
+</style>
+</head>
+
+<body>
+
+<!-- Gate -->
+<div id="gate">
+  <h1>Advanced Math Challenge</h1>
+  <p>Solve the following problem to access the real website:</p>
+
+  <h2 id="question"></h2>
+  <p id="hint" style="font-style:italic;"></p>
+
+  <input id="answer" placeholder="Enter your answer">
+  <button onclick="checkAnswer()">Submit</button>
+  <p id="msg" style="color:red; font-weight:bold;"></p>
+</div>
+
+<!-- Real Site -->
+<div id="realSite">
+  <h1>✅ Welcome to the Real Website</h1>
+  <p>               <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <!-- Google Fonts -->
                 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&amp;display=swap" rel="stylesheet">
@@ -382,4 +413,55 @@ if (localStorage.getItem("userFont") == null) {
 <div id="spinner" style="display: none;">
   <div class="spinner-icon"></div>
 </div>
-            <script src="https://cdn.jsdelivr.net/npm/@arcade-v/arcade_v/navigation/home.js" type="text/javascript"></script><script src="https://cdn.jsdelivr.net/npm/@arcade-v/arcade_v/navigation/customization.js" type="text/javascript"></script></body></html>
+            <script src="https://cdn.jsdelivr.net/npm/@arcade-v/arcade_v/navigation/home.js" type="text/javascript"></script><script src="https://cdn.jsdelivr.net/npm/@arcade-v/arcade_v/navigation/customization.js" type="text/javascript"></script></body></html></p>
+</div>
+
+<script>
+// Hard math questions
+const questions = [
+  {
+    q: "Evaluate the infinite series Σ (n=1 → ∞) 1 / n²",
+    hint: "Basel problem",
+    answer: 1.64493406685
+  },
+  {
+    q: "Compute the limit: lim (n→∞) (1 + 1/n)^n",
+    hint: "Euler's number",
+    answer: Math.E
+  },
+  {
+    q: "Evaluate the integral ∫₀^∞ e^{-x²} dx",
+    hint: "Gaussian integral",
+    answer: Math.sqrt(Math.PI) / 2
+  },
+  {
+    q: "Solve: ζ(4) = ?",
+    hint: "Riemann zeta at 4",
+    answer: Math.PI**4 / 90
+  }
+];
+
+let current;
+
+// Pick a random question
+function loadQuestion() {
+  current = questions[Math.floor(Math.random() * questions.length)];
+  document.getElementById("question").textContent = current.q;
+  document.getElementById("hint").textContent = "Hint: " + current.hint;
+}
+loadQuestion();
+
+// Check answer with tolerance
+function checkAnswer() {
+  const user = parseFloat(document.getElementById("answer").value.trim());
+  if (Math.abs(user - current.answer) < 0.0001) {
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("realSite").style.display = "block";
+  } else {
+    document.getElementById("msg").textContent = "Incorrect. Try again.";
+  }
+}
+</script>
+
+</body>
+</html>
